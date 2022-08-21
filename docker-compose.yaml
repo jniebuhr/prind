@@ -11,7 +11,6 @@ x-klipper-svc: &klipper-svc
 
 ## Service Definitions
 services:
-
   ## Klippy Services
   ##
   klipper-delta:
@@ -25,6 +24,7 @@ services:
       - fluidd
       - mainsail
       - klipperscreen
+    network: host
 
   ## WebApi
   ##
