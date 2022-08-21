@@ -147,7 +147,7 @@ services:
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
-      - "--entrypoints.vzbot.address=:7126
+      - "--entrypoints.vzbot.address=:7126"
     ports:
       - "80:80"
       - "7126:7126"
