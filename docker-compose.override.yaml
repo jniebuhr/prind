@@ -13,6 +13,8 @@ services:
 
   webcam:
     <<: *ustreamer-svc
+    profiles:
+      - video
     devices:
       - /dev/video0:/dev/webcam
     labels:
