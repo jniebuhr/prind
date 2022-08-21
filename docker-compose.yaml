@@ -1,6 +1,6 @@
 ## Common Templates
 x-klipper-svc: &klipper-svc
-  image: mkuf/klipper:latest
+  image: mkuf/klipper:latest-mcu
   restart: unless-stopped
   logging:
     driver: none
