@@ -84,11 +84,11 @@ services:
       - /dev/null:/opt/klipper/docs/null
       - /run/dbus:/run/dbus
       - /run/systemd:/run/systemd
-      - run-delta:/opt/run
-      - /opt/printers/rotary-delta/gcode:/opt/gcode
-      - log-delta:/opt/log
-      - moonraker-db-delta:/opt/db
-      - /opt/printers/rotary-delta/config:/opt/cfg
+      - run-vzbot:/opt/run
+      - /opt/printers/vzbot-235/gcode:/opt/gcode
+      - log-vzbot:/opt/log
+      - moonraker-db-vzbot:/opt/db
+      - /opt/printers/vzbot-235/config:/opt/cfg
     profiles:
       - fluidd
       - mainsail
