@@ -89,14 +89,11 @@ services:
       - log-vzbot:/opt/log
       - moonraker-db-vzbot:/opt/db
       - /opt/printers/vzbot-235/config:/opt/cfg
+    ports:
+      - "7126:7126"
     profiles:
       - fluidd
       - mainsail
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.moonraker.loadbalancer.server.port=7125"
-      - "traefik.http.routers.moonraker.rule=PathPrefix(`/websocket`,`/printer`,`/api`,`/access`,`/machine`,`/server`)"
-      - "traefik.http.routers.moonraker.entrypoints=vzbot"
 
   ## Frontends
   ##
@@ -147,10 +144,8 @@ services:
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
-      - "--entrypoints.vzbot.address=:7126"
     ports:
       - "80:80"
-      - "7126:7126"
     restart: unless-stopped
     volumes:
         - "/var/run/docker.sock:/var/run/docker.sock:ro"
