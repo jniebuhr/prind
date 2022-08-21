@@ -27,7 +27,7 @@ services:
 
   ## WebApi
   ##
-  moonraker:
+  moonraker-delta:
     image: mkuf/moonraker:latest
     restart: unless-stopped
     pid: host
