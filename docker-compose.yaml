@@ -14,29 +14,17 @@ services:
 
   ## Klippy Services
   ##
-  klipper:
+  klipper-delta:
     <<: *klipper-svc
     volumes:
-      - ./config:/opt/cfg
-      - run:/opt/run
-      - gcode:/opt/gcode
-      - log:/opt/log
+      - /opt/printers/rotary-delta/config:/opt/cfg
+      - run-delta:/opt/run
+      - /opt/printers/rotary-delta/gcode:/opt/gcode
+      - log-delta:/opt/log
     profiles:
       - fluidd
       - mainsail
       - klipperscreen
-
-  klipper-priv:
-    <<: *klipper-svc
-    privileged: true
-    volumes:
-      - /dev:/dev
-      - ./config:/opt/cfg
-      - run:/opt/run
-      - gcode:/opt/gcode
-      - log:/opt/log
-    profiles:
-      - octoprint
 
   ## WebApi
   ##
@@ -57,11 +45,11 @@ services:
       - /dev/null:/opt/klipper/docs/null
       - /run/dbus:/run/dbus
       - /run/systemd:/run/systemd
-      - run:/opt/run
-      - gcode:/opt/gcode
-      - log:/opt/log
-      - moonraker-db:/opt/db
-      - ./config:/opt/cfg
+      - run-delta:/opt/run
+      - /opt/printers/rotary-delta/gcode:/opt/gcode
+      - log-delta:/opt/log
+      - moonraker-db-delta:/opt/db
+      - /opt/printers/rotary-delta/config:/opt/cfg
     profiles:
       - fluidd
       - mainsail
@@ -74,26 +62,6 @@ services:
 
   ## Frontends
   ##
-  octoprint:
-    image: octoprint/octoprint:minimal
-    restart: unless-stopped
-    depends_on:
-      klipper-priv:
-        condition: service_started
-    privileged: true
-    volumes:
-      - /dev:/dev
-      - run:/opt/run
-      - octoprint:/octoprint
-      - ./config/octoprint.yaml:/octoprint/octoprint/config.yaml
-    profiles:
-      - octoprint
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.octoprint.loadbalancer.server.port=5000"
-      - "traefik.http.routers.octoprint.rule=PathPrefix(`/`)"
-      - "traefik.http.routers.octoprint.entrypoints=web"
-
   fluidd:
     image: cadriel/fluidd:latest
     restart: unless-stopped
@@ -125,7 +93,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - ./config:/opt/cfg
+      - /opt/printers/rotary-delta/config:/opt/cfg
 
   ## Accompanying Services/Infra
   ##
@@ -134,9 +102,9 @@ services:
   ## This container sets the right permissions and exits
   init:
     image: busybox:latest
-    command: chown -R 1000:1000 /prind/config
+    command: chown -R 1000:1000 /prind/*
     volumes:
-      - .:/prind
+      - /opt/printers:/prind
 
   ## Loadbalancer/Proxy
   traefik:
@@ -153,14 +121,12 @@ services:
         - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
 volumes:
-  run:
+  run-delta:
     driver_opts:
       type: tmpfs
       device: tmpfs
-  gcode:
-  octoprint:
-  moonraker-db:
-  log:
+  moonraker-db-delta:
+  log-delta:
     driver_opts:
       type: tmpfs
       device: tmpfs
