@@ -17,7 +17,7 @@ RUN virtualenv -p python2 venv \
  && venv/bin/python klipper/klippy/chelper/__init__.py
 
 ## Runtime Image
-FROM python:2-slim as run
+FROM python:2 as run
 
 WORKDIR /opt
 COPY --from=build /opt/klipper ./klipper
