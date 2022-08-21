@@ -4,9 +4,6 @@ x-klipper-svc: &klipper-svc
   restart: unless-stopped
   logging:
     driver: none
-  depends_on:
-    init:
-      condition: service_completed_successfully
   command: -I run/klipper.tty -a run/klipper.sock cfg/printer.cfg -l log/klippy.log
 
 ## Service Definitions
@@ -20,6 +17,7 @@ services:
       - run-delta:/opt/run
       - /opt/printers/rotary-delta/gcode:/opt/gcode
       - log-delta:/opt/log
+      - /opt/printers/rotary-delta/klipper:/opt/klipper
     profiles:
       - fluidd
       - mainsail
@@ -35,9 +33,7 @@ services:
       driver: none
     command: -c cfg/moonraker.cfg -l log/moonraker.log
     depends_on:
-      init:
-        condition: service_completed_successfully
-      klipper:
+      klipper-delta:
         condition: service_started
     volumes:
       - /dev/null:/opt/klipper/config/null
@@ -99,12 +95,6 @@ services:
   ##
 
   ## Config dir needs to be writable by uid/gid 1000
-  ## This container sets the right permissions and exits
-  init:
-    image: busybox:latest
-    command: chown -R 1000:1000 /prind/*
-    volumes:
-      - /opt/printers:/prind
 
   ## Loadbalancer/Proxy
   traefik:
