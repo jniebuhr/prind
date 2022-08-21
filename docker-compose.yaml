@@ -23,8 +23,7 @@ services:
     profiles:
       - fluidd
       - mainsail
-      - klipperscreen
-    network: host
+    network_mode: host
 
   ## WebApi
   ##
@@ -89,7 +88,8 @@ services:
     restart: unless-stopped
     network_mode: host
     profiles:
-      - klipperscreen
+      - fluidd
+      - mainsail
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /tmp/.X11-unix:/tmp/.X11-unix
@@ -121,11 +121,20 @@ services:
         - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
 volumes:
+  run-vzbot:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
   run-delta:
     driver_opts:
       type: tmpfs
       device: tmpfs
+  moonraker-db-vzbot:
   moonraker-db-delta:
+  log-vzbot:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
   log-delta:
     driver_opts:
       type: tmpfs
