@@ -1,6 +1,5 @@
 ## Common Templates
 x-klipper-svc: &klipper-svc
-  image: mkuf/klipper:latest-mcu
   build:
     context: docker/klipper
     target: run
