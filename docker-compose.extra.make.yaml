@@ -7,5 +7,5 @@ services:
     working_dir: /opt/klipper
     volumes:
       - /dev:/dev
-      - ./config/build.config:/opt/klipper/.config
       - ./out:/opt/klipper/out
+      - /opt/printers/rotary-delta/klipper:/opt/klipper
