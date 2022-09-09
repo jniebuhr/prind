@@ -8,7 +8,7 @@ x-ustreamer-svc: &ustreamer-svc
 services:
   klipper-delta:
     devices:
-      - /dev/serial/by-id/usb-Klipper_lpc1768_0B80FF0A01A538AF4872DE5BC42000F5-if00:/dev/serial/by-id/usb-Klipper_lpc1768_0B80FF0A01A538AF4872DE5BC42000F5-if00
+      - /dev/serial/by-id/usb-Klipper_stm32f446xx_33000C000750534E4E313120-if00:/dev/serial/by-id/usb-Klipper_stm32f446xx_33000C000750534E4E313120-if00
       - /dev/serial/by-id/usb-Klipper_stm32f401xc_110032000C51353131363539-if00:/dev/serial/by-id/usb-Klipper_stm32f401xc_110032000C51353131363539-if00
 
   webcam:
