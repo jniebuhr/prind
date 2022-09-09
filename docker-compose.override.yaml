@@ -10,7 +10,8 @@ services:
     devices:
       - /dev/serial/by-id/usb-Klipper_stm32f446xx_33000C000750534E4E313120-if00:/dev/serial/by-id/usb-Klipper_stm32f446xx_33000C000750534E4E313120-if00
       - /dev/serial/by-id/usb-Klipper_stm32f401xc_110032000C51353131363539-if00:/dev/serial/by-id/usb-Klipper_stm32f401xc_110032000C51353131363539-if00
-
+    privileged: true 
+     
   webcam:
     <<: *ustreamer-svc
     profiles:
