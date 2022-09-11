@@ -130,6 +130,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /opt/printers/rotary-delta/config:/opt/cfg
+      - ./styles/delta:/opt/klipperscreen/styles/delta
 
   ## Accompanying Services/Infra
   ##
